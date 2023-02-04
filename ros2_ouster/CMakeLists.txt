@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 project(ros2_ouster)
 
-set(CMAKE_BUILD_TYPE Debug)
+# set(CMAKE_BUILD_TYPE Debug)
 
 # Default to compiling in Release mode. If not compiled in Release mode the 
 # driver WILL fail to hit its desired output publish rate.
