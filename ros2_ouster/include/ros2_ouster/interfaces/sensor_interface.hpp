@@ -58,7 +58,7 @@ public:
    */
   virtual void reset(
     ros2_ouster::Configuration & config,
-    rclcpp_lifecycle::LifecycleNode::SharedPtr node) = 0;
+    am::AMLifeCycle::SharedPtr node) = 0;
 
   /**
    * @brief Configure lidar sensor
@@ -67,7 +67,7 @@ public:
    */
   virtual void configure(
     ros2_ouster::Configuration & config,
-    rclcpp_lifecycle::LifecycleNode::SharedPtr node) = 0;
+    am::AMLifeCycle::SharedPtr node) = 0;
 
   /**
    * @brief Ask sensor to get its current state for data collection

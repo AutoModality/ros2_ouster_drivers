@@ -32,7 +32,7 @@ Sensor::~Sensor()
 
 void Sensor::reset(
   ros2_ouster::Configuration & config,
-  rclcpp_lifecycle::LifecycleNode::SharedPtr node)
+  am::AMLifeCycle::SharedPtr node)
 {
   _ouster_client.reset();
   configure(config, node);
@@ -40,7 +40,7 @@ void Sensor::reset(
 
 void Sensor::configure(
   ros2_ouster::Configuration & config,
-  rclcpp_lifecycle::LifecycleNode::SharedPtr node)
+  am::AMLifeCycle::SharedPtr node)
 {
   RCLCPP_INFO(
     node->get_logger(), 

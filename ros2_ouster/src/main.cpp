@@ -13,8 +13,10 @@
 
 #include <memory>
 
-#include "rclcpp/rclcpp.hpp"
+#include <am_utils/am_ros2_utility.h>
 #include "ros2_ouster/driver_types.hpp"
+
+std::shared_ptr<am::AMLifeCycle> am::Node::node;
 
 int main(int argc, char ** argv)
 {
@@ -22,6 +24,7 @@ int main(int argc, char ** argv)
   auto options = rclcpp::NodeOptions();
 
   auto node = std::make_shared<ros2_ouster::Driver>(options);
+  am::Node::node = node;
 
   rclcpp::spin(node->get_node_base_interface());
 

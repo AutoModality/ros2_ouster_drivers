@@ -20,6 +20,7 @@
 #include <utility>
 #include <memory>
 
+#include <super_lib/am_life_cycle.h>
 #include "image_processor.hpp"
 #include "imu_processor.hpp"
 #include "pointcloud_processor.hpp"
@@ -81,7 +82,7 @@ toProcMask(const std::string & mask_str)
  * @return Raw pointer to a data processor interface to use
  */
 inline std::unique_ptr<ros2_ouster::DataProcessorInterface> createImageProcessor(
-  const rclcpp_lifecycle::LifecycleNode::SharedPtr node,
+  const am::AMLifeCycle::SharedPtr node,
   const ouster::sensor::sensor_info & mdata,
   const std::string & frame,
   const rclcpp::QoS & qos,
@@ -100,7 +101,7 @@ inline std::unique_ptr<ros2_ouster::DataProcessorInterface> createImageProcessor
  * @return Raw pointer to a data processor interface to use
  */
 inline std::unique_ptr<ros2_ouster::DataProcessorInterface> createPointcloudProcessor(
-  const rclcpp_lifecycle::LifecycleNode::SharedPtr node,
+  const am::AMLifeCycle::SharedPtr node,
   const ouster::sensor::sensor_info & mdata,
   const std::string & frame,
   const rclcpp::QoS & qos,
@@ -117,7 +118,7 @@ inline std::unique_ptr<ros2_ouster::DataProcessorInterface> createPointcloudProc
  * @return Raw pointer to a data processor interface to use
  */
 inline std::unique_ptr<ros2_ouster::DataProcessorInterface> createIMUProcessor(
-  const rclcpp_lifecycle::LifecycleNode::SharedPtr node,
+  const am::AMLifeCycle::SharedPtr node,
   const ouster::sensor::sensor_info & mdata,
   const std::string & frame,
   const rclcpp::QoS & qos,
@@ -132,7 +133,7 @@ inline std::unique_ptr<ros2_ouster::DataProcessorInterface> createIMUProcessor(
  * @return Raw pointer to a data processor interface to use
  */
 inline std::unique_ptr<ros2_ouster::DataProcessorInterface> createScanProcessor(
-  const rclcpp_lifecycle::LifecycleNode::SharedPtr node,
+  const am::AMLifeCycle::SharedPtr node,
   const ouster::sensor::sensor_info & mdata,
   const std::string & frame,
   const rclcpp::QoS & qos,
@@ -146,7 +147,7 @@ inline std::unique_ptr<ros2_ouster::DataProcessorInterface> createScanProcessor(
 
 inline std::multimap<ouster::sensor::client_state,
   std::unique_ptr<ros2_ouster::DataProcessorInterface>> createProcessors(
-  const rclcpp_lifecycle::LifecycleNode::SharedPtr node,
+  const am::AMLifeCycle::SharedPtr node,
   const ouster::sensor::sensor_info & mdata,
   const std::string & imu_frame,
   const std::string & laser_frame,

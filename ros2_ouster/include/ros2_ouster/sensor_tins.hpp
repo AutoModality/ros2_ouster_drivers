@@ -54,7 +54,7 @@ public:
    */
   void reset(
     ros2_ouster::Configuration & config,
-    rclcpp_lifecycle::LifecycleNode::SharedPtr node) override;
+    am::AMLifeCycle::SharedPtr node) override;
 
   /**
    * @brief Configure lidar sensor
@@ -63,7 +63,7 @@ public:
    */
   void configure(
     ros2_ouster::Configuration & config,
-    rclcpp_lifecycle::LifecycleNode::SharedPtr node) override;
+    am::AMLifeCycle::SharedPtr node) override;
 
   /**
    * @brief Get lidar sensor's metadata

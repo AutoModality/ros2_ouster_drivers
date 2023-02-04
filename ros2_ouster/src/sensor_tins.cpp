@@ -34,7 +34,7 @@ SensorTins::~SensorTins()
 
 void SensorTins::reset(
   ros2_ouster::Configuration & config,
-  rclcpp_lifecycle::LifecycleNode::SharedPtr node)
+  am::AMLifeCycle::SharedPtr node)
 {
   _ouster_client.reset();
   configure(config, node);
@@ -42,7 +42,7 @@ void SensorTins::reset(
 
 void SensorTins::configure(
   ros2_ouster::Configuration & config,
-  rclcpp_lifecycle::LifecycleNode::SharedPtr node)
+  am::AMLifeCycle::SharedPtr node)
 {
   RCLCPP_INFO(
     node->get_logger(), 

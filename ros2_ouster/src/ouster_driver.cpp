@@ -38,7 +38,7 @@ using namespace std::chrono_literals;
 OusterDriver::OusterDriver(
   std::unique_ptr<SensorInterface> sensor,
   const rclcpp::NodeOptions & options)
-: LifecycleInterface("OusterDriver", options), _sensor{std::move(sensor)}
+: AMLifeCycle("OusterDriver", options), _sensor{std::move(sensor)}
 {
   // Declare parameters for configuring the _driver_
   this->declare_parameter("sensor_frame", std::string("laser_sensor_frame"));
@@ -136,6 +136,8 @@ void OusterDriver::onConfigure()
   _tf_b = std::make_unique<tf2_ros::StaticTransformBroadcaster>(
     shared_from_this());
   broadcastStaticTransforms(_sensor->getMetadata());
+
+  AMLifeCycle::onConfigure();
 }
 
 void OusterDriver::onActivate()
@@ -153,10 +155,13 @@ void OusterDriver::onActivate()
   _processing_active = true;
   _process_thread = std::thread(std::bind(&OusterDriver::processData, this));
   _recv_thread = std::thread(std::bind(&OusterDriver::receiveData, this));
+
+  AMLifeCycle::onActivate();
 }
 
 void OusterDriver::onError()
 {
+  AMLifeCycle::onError();
 }
 
 void OusterDriver::onDeactivate()
@@ -176,6 +181,8 @@ void OusterDriver::onDeactivate()
   for (it = _data_processors.begin(); it != _data_processors.end(); ++it) {
     it->second->onDeactivate();
   }
+
+  AMLifeCycle::onDeactivate();
 }
 
 void OusterDriver::onCleanup()
@@ -184,6 +191,8 @@ void OusterDriver::onCleanup()
   _tf_b.reset();
   _reset_srv.reset();
   _metadata_srv.reset();
+
+  AMLifeCycle::onCleanup();
 }
 
 void OusterDriver::onShutdown()
@@ -192,6 +201,8 @@ void OusterDriver::onShutdown()
 
   DataProcessorMapIt it;
   _data_processors.clear();
+
+  AMLifeCycle::onShutdown();
 }
 
 void OusterDriver::broadcastStaticTransforms(

@@ -20,6 +20,8 @@
 #include <fstream>
 #include <sstream>
 
+#include <super_lib/am_life_cycle.h>
+
 #include "ros2_ouster/conversions.hpp"
 
 #include "ros2_ouster/interfaces/lifecycle_interface.hpp"
@@ -48,7 +50,7 @@ class SensorInterface;
  * @brief A lifecycle interface implementation of a Ouster OS-1 Lidar
  * driver in ROS2.
  */
-class OusterDriver : public lifecycle_interface::LifecycleInterface
+class OusterDriver : public am::AMLifeCycle
 {
 public:
   using DataProcessorMap = std::multimap<ouster::sensor::client_state,

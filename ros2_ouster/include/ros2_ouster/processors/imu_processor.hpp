@@ -45,7 +45,7 @@ public:
    * @param frame frame_id to use for messages
    */
   IMUProcessor(
-    const rclcpp_lifecycle::LifecycleNode::SharedPtr node,
+    const am::AMLifeCycle::SharedPtr node,
     const ouster::sensor::sensor_info & mdata,
     const std::string & frame,
     const rclcpp::QoS & qos,
@@ -69,7 +69,7 @@ public:
    */
   bool process(const uint8_t * data, const uint64_t override_ts) override
   {
-    if (_pub->get_subscription_count() > 0 && _pub->is_activated()) {
+    if (_pub->get_subscription_count() > 0) {
       _pub->publish(ros2_ouster::toMsg(data, _frame, _pf, override_ts));
     }
     return true;
@@ -80,7 +80,7 @@ public:
    */
   void onActivate() override
   {
-    _pub->on_activate();
+    // _pub->on_activate();
   }
 
   /**
@@ -88,12 +88,12 @@ public:
    */
   void onDeactivate() override
   {
-    _pub->on_deactivate();
+    // _pub->on_deactivate();
   }
 
 private:
-  rclcpp_lifecycle::LifecyclePublisher<sensor_msgs::msg::Imu>::SharedPtr _pub;
-  rclcpp_lifecycle::LifecycleNode::SharedPtr _node;
+  rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr _pub;
+  am::AMLifeCycle::SharedPtr _node;
   std::string _frame;
   ouster::sensor::packet_format _pf;
 };

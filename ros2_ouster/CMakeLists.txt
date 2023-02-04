@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 project(ros2_ouster)
 
+set(CMAKE_BUILD_TYPE Debug)
+
 # Default to compiling in Release mode. If not compiled in Release mode the 
 # driver WILL fail to hit its desired output publish rate.
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
@@ -22,6 +24,7 @@ find_package(pcl_conversions REQUIRED)
 find_package(ouster_msgs REQUIRED)
 find_package(PCL REQUIRED COMPONENTS common)
 find_package(jsoncpp REQUIRED)
+find_package(am_utils REQUIRED)
 
 include_directories(
   include
@@ -48,6 +51,7 @@ set(dependencies
   ouster_msgs
   tf2_geometry_msgs
   pcl_conversions
+  am_utils
 )
 
 add_library(${library_name} SHARED
@@ -67,6 +71,7 @@ ament_target_dependencies(${library_name}
 )
 
 target_link_libraries(${library_name}
+  gtest
   jsoncpp_lib
   tins
   ${PCL_LIBRARIES}
@@ -107,8 +112,8 @@ install(DIRECTORY params
 )
 
 if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
-  ament_lint_auto_find_test_dependencies()
+ find_package(ament_lint_auto REQUIRED)
+ ament_lint_auto_find_test_dependencies()
 endif()
 
 ament_export_include_directories(include)

@@ -54,7 +54,7 @@ public:
    * @param frame frame_id to use for messages
    */
   ImageProcessor(
-    const rclcpp_lifecycle::LifecycleNode::SharedPtr node,
+    const am::AMLifeCycle::SharedPtr node,
     const ouster::sensor::sensor_info & mdata,
     const std::string & frame,
     const rclcpp::QoS & qos,
@@ -189,9 +189,9 @@ public:
    */
   void onActivate() override
   {
-    _intensity_image_pub->on_activate();
-    _ambient_image_pub->on_activate();
-    _range_image_pub->on_activate();
+    // _intensity_image_pub->on_activate();
+    // _ambient_image_pub->on_activate();
+    // _range_image_pub->on_activate();
   }
 
   /**
@@ -199,16 +199,16 @@ public:
    */
   void onDeactivate() override
   {
-    _intensity_image_pub->on_deactivate();
-    _ambient_image_pub->on_deactivate();
-    _range_image_pub->on_deactivate();
+    // _intensity_image_pub->on_deactivate();
+    // _ambient_image_pub->on_deactivate();
+    // _range_image_pub->on_deactivate();
   }
 
 private:
-  rclcpp_lifecycle::LifecyclePublisher<sensor_msgs::msg::Image>::SharedPtr _range_image_pub;
-  rclcpp_lifecycle::LifecyclePublisher<sensor_msgs::msg::Image>::SharedPtr _ambient_image_pub;
-  rclcpp_lifecycle::LifecyclePublisher<sensor_msgs::msg::Image>::SharedPtr _intensity_image_pub;
-  rclcpp_lifecycle::LifecycleNode::SharedPtr _node;
+  rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr _range_image_pub;
+  rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr _ambient_image_pub;
+  rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr _intensity_image_pub;
+  am::AMLifeCycle::SharedPtr _node;
   sensor_msgs::msg::Image _range_image;
   sensor_msgs::msg::Image _ambient_image;
   sensor_msgs::msg::Image _intensity_image;
